@@ -1,6 +1,9 @@
 FROM ghcr.io/oracle/oraclelinux:7-slim
 ARG ARCH
 ENV ARCH=$ARCH
+RUN yum-config-manager --enable ol7_optional_latest && \
+    yum-config-manager --enable ol7_addons && \
+    yum -y install git
 RUN groupadd -g 1000 fleet-apply && useradd -u 1000 -g 1000 -m fleet-apply; rm -fr /var/cache/* /var/log/*log
 COPY bin/fleetagent-linux-$ARCH /usr/bin/fleetagent
 COPY bin/fleet-linux-$ARCH /usr/bin/fleet
