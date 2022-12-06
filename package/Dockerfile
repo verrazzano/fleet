@@ -8,6 +8,8 @@ RUN yum-config-manager --add-repo=http://yum.oracle.com/repo/OracleLinux/OL7/Sof
     source /etc/profile.d/git.sh && \
     git version
 # Set up the git 2.x environment variables so that it's on the path and the needed files on the LD_LIBRARY_PATH
+ENV PATH="/opt/rh/rh-git227/root/usr/bin:${PATH}"
+
 RUN cat /etc/profile.d/git.sh >> /etc/profile && \
     cd /lib64 && \
     ln -s /opt/rh/httpd24/root/usr/lib64/libcurl-httpd24.so.4 && \
