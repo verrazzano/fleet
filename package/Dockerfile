@@ -1,15 +1,7 @@
-ARG BUILD_ENV=dapper
-
-FROM registry.suse.com/bci/bci-base:15.4.27.14.29 AS base
+FROM ghcr.io/oracle/oraclelinux:7-slim
+ARG ARCH
+ENV ARCH=$ARCH
+COPY bin/fleetcontroller-linux-${ARCH} /usr/bin/fleetcontroller
+COPY LICENSE README.md THIRD_PARTY_LICENSES.txt SECURITY.md /licenses/
 USER 1000
-
-FROM base AS copy_dapper
-ONBUILD ARG ARCH
-ONBUILD COPY bin/fleetcontroller-linux-${ARCH} /usr/bin/fleetcontroller
-
-FROM base AS copy_buildx
-ONBUILD ARG TARGETARCH
-ONBUILD COPY bin/fleetcontroller-linux-${TARGETARCH} /usr/bin/fleetcontroller
-
-FROM copy_${BUILD_ENV}
 CMD ["fleetcontroller"]
