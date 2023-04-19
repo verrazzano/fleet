@@ -1,10 +1,19 @@
-FROM registry.suse.com/bci/golang:1.19-20.4
+FROM ghcr.io/oracle/oraclelinux:7-slim
 
 ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
 
-RUN zypper -n install git docker vim wget
-RUN curl -sL https://get.helm.sh/helm-v3.9.3-linux-${ARCH}.tar.gz | tar xvzf - -C /usr/local/bin --strip-components=1
+RUN yum-config-manager --enable ol7_optional_latest && \
+    yum-config-manager --enable ol7_addons && \
+    yum -y install git && \
+    yum -y install oracle-golang-release-el7 && \
+    yum-config-manager --enable ol7_developer_golang119 && \
+    yum install -y golang-1.19 && \
+    yum -y install docker-engine-18.09.8.ol-1.0.4.el7.x86_64 && \
+    yum-config-manager --add-repo https://yum.oracle.com/repo/OracleLinux/OL7/olcne12/x86_64/ && \
+    yum -y install helm-3.3.4-2.el7.x86_64 && \
+    yum clean all && \
+    rm -rf /var/cache/yum
 
 ENV DAPPER_ENV REPO TAG DRONE_TAG CROSS DEBUG
 ENV DAPPER_SOURCE /go/src/github.com/rancher/fleet/
