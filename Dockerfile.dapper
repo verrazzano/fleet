@@ -7,6 +7,7 @@ RUN yum-config-manager --enable ol7_optional_latest && \
     yum-config-manager --enable ol7_addons && \
     yum -y install git && \
     yum -y install oracle-golang-release-el7 && \
+    yum-config-manager --disable ol7_developer_golang\* && \
     yum-config-manager --enable ol7_developer_golang118 && \
     yum install -y golang && \
     yum -y install docker-engine-18.09.8.ol-1.0.4.el7.x86_64 && \
