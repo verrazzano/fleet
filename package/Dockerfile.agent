@@ -19,4 +19,8 @@ COPY bin/fleetagent-linux-$ARCH /usr/bin/fleetagent
 COPY bin/fleet-linux-$ARCH /usr/bin/fleet
 COPY package/log.sh /usr/bin/
 COPY LICENSE README.md THIRD_PARTY_LICENSES.txt SECURITY.md /licenses/
+
+# Update PATH to make sure git 2.27 is on the path
+ENV PATH="/opt/rh/rh-git227/root/usr/bin:${PATH}"
+
 CMD ["fleetagent"]
