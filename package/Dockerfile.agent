@@ -1,8 +1,18 @@
 FROM ghcr.io/oracle/oraclelinux:7-slim
 ARG ARCH
 ENV ARCH=$ARCH
-RUN yum -y update && \
-    yum -y clean all
+RUN yum-config-manager --enable ol7_optional_latest && \
+    yum-config-manager --enable ol7_addons && \
+    yum update -y && \
+    # software collections repo needed for git 2.x on OL7
+    yum-config-manager --add-repo=http://yum.oracle.com/repo/OracleLinux/OL7/SoftwareCollections/x86_64 && \
+    yum install -y rh-git227 curl ca-certificates unzip tar docker-cli nc mkisofs && \
+    yum clean all && \
+    rm -rf /var/cache/yum && \
+    # Set up needed to ensure git 2.27 from rh-git227 is on the path
+    ln /opt/rh/rh-git227/enable /etc/profile.d/git.sh && \
+    source /etc/profile.d/git.sh && \
+    git version
 RUN groupadd -g 1000 fleet-apply && useradd -u 1000 -g 1000 -m fleet-apply; rm -fr /var/cache/* /var/log/*log
 COPY bin/fleetagent-linux-$ARCH /usr/bin/fleetagent
 COPY bin/fleet-linux-$ARCH /usr/bin/fleet
