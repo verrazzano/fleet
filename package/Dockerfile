@@ -12,6 +12,7 @@ RUN yum-config-manager --enable ol7_optional_latest && \
     # Set up needed to ensure git 2.27 from rh-git227 is on the path
     ln /opt/rh/rh-git227/enable /etc/profile.d/git.sh && \
     source /etc/profile.d/git.sh && \
+    cat /etc/profile.d/git.sh >> /etc/profile \
     git version
 COPY bin/fleetcontroller-linux-${ARCH} /usr/bin/fleetcontroller
 COPY LICENSE README.md THIRD_PARTY_LICENSES.txt SECURITY.md /licenses/
