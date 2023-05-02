@@ -461,8 +461,7 @@ func (h *handler) OnChange(gitrepo *fleet.GitRepo, status fleet.GitRepoStatus) (
 									Env:             envs,
 								},
 							},
-							ImagePullSecrets: []corev1.LocalObjectReference{{Name: "verrazzano-container-registry"}},
-							NodeSelector:     map[string]string{"kubernetes.io/os": "linux"},
+							NodeSelector: map[string]string{"kubernetes.io/os": "linux"},
 							Tolerations: []corev1.Toleration{{
 								Key:      "cattle.io/os",
 								Operator: "Equal",
