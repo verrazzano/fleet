@@ -21,9 +21,4 @@ USER 1000
 # Update PATH to make sure git 2.27 is on the path
 ENV PATH="/opt/rh/rh-git227/root/usr/bin:${PATH}"
 
-FROM base AS copy_buildx
-ONBUILD ARG TARGETARCH
-ONBUILD COPY bin/fleetcontroller-linux-${TARGETARCH} /usr/bin/fleetcontroller
-
-FROM copy_${BUILD_ENV}
 CMD ["fleetcontroller"]
