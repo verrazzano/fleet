@@ -1,4 +1,4 @@
-==== Public License Template ===
+=== Public License Template ===
 
 ------------------------------ Top-Level License -------------------------------
 SPDX:Apache-2.0
@@ -1385,6 +1385,17 @@ SPDX:MIT
 
 == Copyright
 Copyright (c) 2019 Josh Bleecher Snyder
+
+--------------------------------- (separator) ----------------------------------
+
+== Dependency
+github.com/jpillora/backoff
+
+== License Type
+SPDX:MIT
+
+== Copyright
+Copyright (c) 2017 Jaime Pillora
 
 --------------------------------- (separator) ----------------------------------
 
@@ -4700,5 +4711,5 @@ the Mozilla Public License, v. 2.0.
 
 
 === ATTRIBUTION-HELPER-GENERATED:
-=== Attribution helper version: {Major:0 Minor:11 GitVersion:0.10.0-110-gd8300771 GitCommit:0568224d9585cc8076853f37fa302b514b42ea0a GitTreeState:clean BuildDate:2023-08-02T23:22:43Z GoVersion:go1.19 Compiler:gc Platform:linux/amd64}
-=== License file based on go.mod with md5 sum:  78cf79f218886e648264043667cc8493
+=== Attribution helper version: {Major:0 Minor:11 GitVersion:0.10.0-110-gd8300771 GitCommit:0006e5612c04706852588868e32324cbfd0f682a GitTreeState:clean BuildDate:2023-09-05T21:39:18Z GoVersion:go1.19 Compiler:gc Platform:linux/amd64}
+=== License file based on go.mod with md5 sum:  1f77bcb4af195396b5b6598ec6d01c10
