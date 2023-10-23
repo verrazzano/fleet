@@ -469,7 +469,7 @@ func (h *handler) OnChange(gitrepo *fleet.GitRepo, status fleet.GitRepoStatus) (
 									Name:            "fleet",
 									Image:           config.Get().AgentImage,
 									ImagePullPolicy: corev1.PullPolicy(config.Get().AgentImagePullPolicy),
-									Command:         []string{"log.sh"},
+									Command:         []string{"log.sh", "--"},
 									Args:            append(args, paths...),
 									WorkingDir:      "/workspace/source",
 									VolumeMounts:    volumeMounts,
