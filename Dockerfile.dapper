@@ -4,7 +4,7 @@ ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
 
 RUN dnf config-manager --add-repo http://yum.oracle.com/repo/OracleLinux/OL8/olcne17/x86_64 && \
-    dnf upgrade -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs && \
+    dnf update -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs && \
     dnf install -y dnf-utils zip unzip && \
     dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo && \
     dnf remove -y runc && \
@@ -14,19 +14,6 @@ RUN dnf config-manager --add-repo http://yum.oracle.com/repo/OracleLinux/OL8/olc
     dnf install -y golang-1.19.13-1.module+el8.8.0+21189+9e6e1f9f helm-3.12.0-1.el8.x86_64 git && \
     dnf clean all && \
     rm -rf /var/cache/yum /var/lib/rpm/*
-
-
-#RUN yum-config-manager --enable ol7_optional_latest && \
-#    yum-config-manager --enable ol7_addons && \
-#    yum -y install git && \
-#    yum -y install oracle-golang-release-el7 && \
-#    yum-config-manager --enable ol7_developer_golang119 && \
-#    yum install -y golang-1.19 && \
-#    yum -y install docker-engine-18.09.8.ol-1.0.4.el7.x86_64 && \
-#    yum-config-manager --add-repo https://yum.oracle.com/repo/OracleLinux/OL7/olcne16/x86_64/ && \
-#    yum -y install helm-3.11.1-1.el7.x86_64 && \
-#    yum clean all && \
-#    rm -rf /var/cache/yum
 
 ENV DAPPER_ENV REPO TAG DRONE_TAG CROSS DEBUG
 ENV DAPPER_SOURCE /go/src/github.com/rancher/fleet/
