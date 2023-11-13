@@ -1,19 +1,24 @@
-FROM ghcr.io/oracle/oraclelinux:7-slim
+FROM ghcr.io/oracle/oraclelinux:8-slim
 
 ARG DAPPER_HOST_ARCH
 ENV ARCH $DAPPER_HOST_ARCH
 
-RUN yum-config-manager --enable ol7_optional_latest && \
-    yum-config-manager --enable ol7_addons && \
-    yum -y install git && \
-    yum -y install oracle-golang-release-el7 && \
-    yum-config-manager --enable ol7_developer_golang119 && \
-    yum install -y golang-1.19 && \
-    yum -y install docker-engine-18.09.8.ol-1.0.4.el7.x86_64 && \
-    yum-config-manager --add-repo https://yum.oracle.com/repo/OracleLinux/OL7/olcne16/x86_64/ && \
-    yum -y install helm-3.11.1-1.el7.x86_64 && \
-    yum clean all && \
-    rm -rf /var/cache/yum
+RUN microdnf install -y golang-1.19, helm && \
+    && microdnf clean all \
+    && rm -rf /var/cache/yum /var/lib/rpm/* \
+
+
+#RUN yum-config-manager --enable ol7_optional_latest && \
+#    yum-config-manager --enable ol7_addons && \
+#    yum -y install git && \
+#    yum -y install oracle-golang-release-el7 && \
+#    yum-config-manager --enable ol7_developer_golang119 && \
+#    yum install -y golang-1.19 && \
+#    yum -y install docker-engine-18.09.8.ol-1.0.4.el7.x86_64 && \
+#    yum-config-manager --add-repo https://yum.oracle.com/repo/OracleLinux/OL7/olcne16/x86_64/ && \
+#    yum -y install helm-3.11.1-1.el7.x86_64 && \
+#    yum clean all && \
+#    rm -rf /var/cache/yum
 
 ENV DAPPER_ENV REPO TAG DRONE_TAG CROSS DEBUG
 ENV DAPPER_SOURCE /go/src/github.com/rancher/fleet/
