@@ -5,7 +5,7 @@ ENV ARCH $DAPPER_HOST_ARCH
 
 RUN dnf config-manager --add-repo http://yum.oracle.com/repo/OracleLinux/OL8/olcne17/x86_64 && \
     dnf upgrade -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs && \
-    dnf install -y golang helm && \
+    dnf install -y golang helm git && \
     dnf clean all && \
     rm -rf /var/cache/yum /var/lib/rpm/*
 
