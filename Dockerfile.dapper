@@ -5,8 +5,12 @@ ENV ARCH $DAPPER_HOST_ARCH
 
 RUN dnf config-manager --add-repo http://yum.oracle.com/repo/OracleLinux/OL8/olcne17/x86_64 && \
     dnf upgrade -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs && \
-    dnf module install container-tools:ol8 && \
-    dnf install -y golang helm git podman-docker && \
+    dnf install -y dnf-utils zip unzip && \
+    dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo && \
+    dnf remove -y runc && \
+    dnf install -y docker-ce --nobest && \
+    # dnf module install container-tools:ol8 && \
+    # dnf install -y golang-1.19.13-1.module+el8.8.0+21189+9e6e1f9f helm git podman-docker && \
     dnf clean all && \
     rm -rf /var/cache/yum /var/lib/rpm/*
 
