@@ -1,4 +1,4 @@
-FROM ghcr.io/oracle/oraclelinux:7-slim
+FROM ghcr.io/oracle/oraclelinux:8-slim
 ARG ARCH
 ENV ARCH=$ARCH
 RUN microdnf update -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs && \
