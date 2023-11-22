@@ -12,12 +12,15 @@ RUN microdnf update -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs && \
     ./test
 
 FROM ghcr.io/oracle/oraclelinux:8-slim
+ARG ARCH
+ENV ARCH=$ARCH
+
 RUN microdnf update -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs && \
     microdnf install -y unzip nc mkisofs && \
     microdnf clean all && \
     rm -rf /var/cache/yum /var/lib/rpm/*
 
-COPY --from=build bin/fleetcontroller-linux /usr/bin/fleetcontroller
+COPY --from=build bin/fleetcontroller-linux-${ARCH} /usr/bin/fleetcontroller
 COPY LICENSE README.md THIRD_PARTY_LICENSES.txt SECURITY.md /licenses/
 USER 1000
 
