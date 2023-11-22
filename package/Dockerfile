@@ -1,13 +1,18 @@
-FROM ghcr.io/oracle/oraclelinux:8-slim as build
-RUN microdnf update -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs && \
-    microdnf install -y golang-1.20.10-1.module+el8.9.0+90068+08775a1f.x86_64
-
-RUN source scripts/build && \
-    source scripts/tests
-
-FROM ghcr.io/oracle/oraclelinux:8-slim
 ARG ARCH
 ENV ARCH=$ARCH
+
+FROM ghcr.io/oracle/oraclelinux:8-slim as build
+
+COPY . /go/src/github.com/rancher/fleet/
+
+RUN microdnf update -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs && \
+    microdnf install -y golang-1.20.10-1.module+el8.9.0+90068+08775a1f.x86_64 && \
+    microdnf install -y git && \
+    cd /go/src/github.com/rancher/fleet/scripts && \
+    ./build && \
+    ./test
+
+FROM ghcr.io/oracle/oraclelinux:8-slim
 RUN microdnf update -y --setopt=install_weak_deps=0 --setopt=tsflags=nodocs && \
     microdnf install -y unzip nc mkisofs && \
     microdnf clean all && \
